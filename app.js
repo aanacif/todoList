@@ -57,7 +57,7 @@ function addTask(e) {
 
 function removeTask(e) {
   if (e.target.parentElement.classList.contains('delete-item')) {
-    if (confirm('Remover a?')) {
+    if (confirm('Remover tarefa?')) {
       e.target.parentElement.parentElement.remove();
     }
   }
