@@ -2,8 +2,14 @@
 const form = document.querySelector('#task-form');
 const taskList = document.querySelector('.collection');
 const clearBtn = document.querySelector('.clear-tasks');
-const filter = document.querySelector('#filter');
 const taskInput = document.querySelector('#task');
+
+
+function idGenerator() {
+  let taskId = Math.floor(Date.now() / 1000);
+  return taskId;
+
+}
 
 // Load all event listeners
 loadEventListeners();
@@ -16,9 +22,6 @@ function loadEventListeners() {
   taskList.addEventListener('click', removeTask);
   // Clear Tasks event
   clearBtn.addEventListener('click', clearTasks);
-  // Filter tasks event
-  filter.addEventListener('keyup', filterTasks);
-
 }
 
 // Add Task
@@ -27,30 +30,26 @@ function addTask(e) {
     alert('Adicione uma tarefa');
     return;
   }
-  
+
   // Create li element
   const li = document.createElement('li');
   // Add class
-  li.className = 'collection-item';
+  li.className = 'collection-item';  
   // Create text node and append to li
   li.appendChild(document.createTextNode(taskInput.value));
   // Create new link element
   const link = document.createElement('a');
-  // Add class
+  // Add class to delete and push to the right
   link.className = 'delete-item secondary-content';
-  // Add icon html
-  link.innerHTML = '<i class="fa fa-remove fa-2x"></i>';
+  // Add icon html  
+  link.innerHTML = '<i class="small material-icons">delete</i>';
   // Append the link to li
   li.appendChild(link);
-  
   // Append li to ul
-  taskList.appendChild(li);
-  
+  taskList.appendChild(li);  
   // Clear input
   taskInput.value = '';
-  
   e.preventDefault();
-  
 }
 
 // Remove Task
@@ -73,17 +72,4 @@ function clearTasks() {
       }
     }
   }
-}
-
-// Filter Tasks
-function filterTasks(e) {
-  const text = e.target.value.toLowerCase();
-  document.querySelectorAll('.collection-item').forEach(function (task) {
-    const item = task.firstChild.textContent;
-    if (item.toLowerCase().indexOf(text) != -1) {
-      task.style.display = 'block';
-    } else {
-      task.style.display = 'none';
-    }
-  });
 }
